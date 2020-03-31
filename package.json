@@ -1,0 +1,17 @@
+{
+  "name": "boring",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "zhao xi <zxpstudy@163.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "@types/node": "^13.9.8",
+    "prettier": "^2.0.2"
+  },
+  "devDependencies": {
+    "electron": "^8.2.0"
+  }
+}
