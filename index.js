@@ -7,6 +7,9 @@ const {
   screen,
   shell,
 } = require("electron");
+const { createWindow222 } = require("./src/hover/hoverMain");
+
+const map = {};
 
 let win;
 
@@ -18,16 +21,17 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
-    transparent: true,
-    frame: false,
+    // transparent: true,
+    // frame: false,
   });
   // win.setIgnoreMouseEvents(true)
 
   // 加载index.html文件
   win.loadFile("index.html");
 
-  // win.webContents.openDevTools();
+  map["main"] = win;
 
+  // win.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);
@@ -51,8 +55,8 @@ ipcMain.on("synchronous-message", (event, arg) => {
   event.returnValue = "pong";
 });
 
-ipcMain.on("close-win", (event) => {
-  win && win.close();
+ipcMain.on("close-win", (event, args) => {
+  map[args] && map[args].close();
 });
 ipcMain.on("zx-notify", (event) => {
   new Notification({
@@ -68,7 +72,12 @@ ipcMain.on("zx-shell", (event) => {
 });
 
 ipcMain.on("zx-win-frame", (event, args) => {
-  if(args){
-
+  const win = createWindow222();
+  map["hover"] = win;
+  if (args) {
   }
+});
+
+ipcMain.on("zx-set-win-pos", (event, args) => {
+  win.setPosition(args.x, args.y);
 });

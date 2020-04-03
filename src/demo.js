@@ -23,7 +23,7 @@ ipcRenderer.on("asynchronous-reply", (event, arg) => {
 });
 
 btnClose.addEventListener("click", () => {
-  ipcRenderer.send("close-win");
+  ipcRenderer.send("close-win", "main");
 });
 
 btnNotify.addEventListener("click", () => {
@@ -43,15 +43,4 @@ btnFrameShow.addEventListener("click", () => {
 });
 btnFrameClose.addEventListener("click", () => {
   ipcRenderer.send("zx-win-frame", false);
-});
-
-
-window.addEventListener('mousedown',(e)=>{
-  console.log('-------mousedown-------',e);
-});
-window.addEventListener('mousemove',(e)=>{
-  console.log('-------mousemove-------',e);
-});
-window.addEventListener('mouseup',(e)=>{
-  console.log('-------mouseup-------',e);
 });
