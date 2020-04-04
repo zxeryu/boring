@@ -1,40 +1,14 @@
-const {
-  app,
-  BrowserWindow,
-  dialog,
-  ipcMain,
-  Notification,
-  screen,
-  shell,
-} = require("electron");
-const { createWindow222 } = require("./src/hover/hoverMain");
+const { app, ipcMain, Notification, screen, shell } = require("electron");
+const { createWindow, registerWinListener } = require("./src/route/window");
+const { home } = require("./src/pages");
 
 const map = {};
 
 let win;
 
-function createWindow() {
-  // 创建浏览器窗口
-  win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-    // transparent: true,
-    // frame: false,
-  });
-  // win.setIgnoreMouseEvents(true)
-
-  // 加载index.html文件
-  win.loadFile("index.html");
-
-  map["main"] = win;
-
-  // win.webContents.openDevTools();
-}
-
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow(home);
+});
 
 app.on("window-all-closed", () => {
   // 在 macOS 上，除非用户用 Cmd + Q 确定地退出，
@@ -45,6 +19,9 @@ app.on("window-all-closed", () => {
 });
 
 //********************* ipcMain  **********************
+
+registerWinListener();
+
 ipcMain.on("asynchronous-message", (event, arg) => {
   console.log("main===", arg); // prints "ping"
   event.reply("asynchronous-reply", "pong");

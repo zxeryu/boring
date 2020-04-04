@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/node": "^13.9.8",
+    "lodash": "^4.17.15",
     "prettier": "^2.0.2"
   },
   "devDependencies": {

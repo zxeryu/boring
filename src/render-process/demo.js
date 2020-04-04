@@ -1,4 +1,10 @@
 const { ipcRenderer } = require("electron");
+const { home, hover } = require("../pages");
+const {
+  sendCreateWinInRender,
+  sendCloseWinInRender,
+} = require("../route/window");
+
 const btnDialog = document.getElementById("btn-dialog");
 const btnIpcMain = document.getElementById("btn-ipcMain");
 const btnClose = document.getElementById("btn-close");
@@ -23,7 +29,7 @@ ipcRenderer.on("asynchronous-reply", (event, arg) => {
 });
 
 btnClose.addEventListener("click", () => {
-  ipcRenderer.send("close-win", "main");
+  sendCloseWinInRender(home);
 });
 
 btnNotify.addEventListener("click", () => {
@@ -39,7 +45,7 @@ btnShell.addEventListener("click", () => {
 });
 
 btnFrameShow.addEventListener("click", () => {
-  ipcRenderer.send("zx-win-frame", true);
+  sendCreateWinInRender(hover);
 });
 btnFrameClose.addEventListener("click", () => {
   ipcRenderer.send("zx-win-frame", false);
