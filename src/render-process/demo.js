@@ -3,7 +3,7 @@ const { home, hover } = require("../pages");
 const {
   sendCreateWinInRender,
   sendCloseWinInRender,
-} = require("../route/window");
+} = require("../main-process/window");
 
 const btnDialog = document.getElementById("btn-dialog");
 const btnIpcMain = document.getElementById("btn-ipcMain");

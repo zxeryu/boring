@@ -2,6 +2,7 @@ const { RouteTree } = require("./route/RouteTree");
 
 const ConfigBase = {
   webPreferences: {
+    devTools: true,
     nodeIntegration: true,
   },
 };
@@ -32,6 +33,9 @@ const home = RouteTree.id("main")
     ...ConfigBase,
     width: 300,
     height: 600,
+    x: 100,
+    y: 100,
+    fullscreen: false,
   })
   .withRoutes([hover]);
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color: rgba(0, 0, 0, 0.5);">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>主页</title>
     <style>
       html,
       body,
@@ -16,31 +16,10 @@
     </style>
   </head>
   <body>
-    <header
-      id="header"
-      style="
-        background-color: whitesmoke;
-        padding: 10px;
-        cursor: pointer;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      "
-    >
-      <p>取值</p>
-      <button id="btn-close">关闭</button>
-    </header>
-    <p>Hello World !!!!</p>
-    <button id="btn-dialog">dialog</button><br />
-    <button id="btn-ipcMain">ipcMain</button>
-    <br />
-    <button id="btn-notify">notify</button><br />
-    <button id="btn-screen">screen point</button><br />
-    <button id="btn-shell">shell open baidu</button><br />
-    <button id="btn-frame-show">frame true</button>
-    <button id="btn-frame-close">frame false</button>
-    <br />
+    <ul id="list" />
 
-    <script src="../render-process/demo.js"></script>
+    <button id="btn_add">添加</button>
+
+    <script src="../render-process/homeRender.js"></script>
   </body>
 </html>

@@ -6,7 +6,7 @@ class RouteTree {
   routes;
   parent;
   config;
-  win;
+  params;
 
   set(key, value) {
     return new RouteTree(assign({}, this, { [key]: value }));
@@ -25,7 +25,7 @@ class RouteTree {
     );
     this.parent = route.parent;
     this.config = route.config;
-    this.win = route.win;
+    this.params = route.params;
   }
 
   static id = (id) => {
@@ -49,9 +49,8 @@ class RouteTree {
   withConfig(config) {
     return this.set("config", config);
   }
-
-  withWin(win) {
-    return this.set("win", win);
+  withParams(params) {
+    return this.set("params", params);
   }
 }
 
