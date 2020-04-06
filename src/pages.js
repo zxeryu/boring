@@ -1,4 +1,4 @@
-const { RouteTree } = require("./route/RouteTree");
+const { RouteTree } = require("../src-core/route/RouteTree");
 
 const ConfigBase = {
   webPreferences: {

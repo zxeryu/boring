@@ -1,11 +1,11 @@
-const { parseSearchString } = require("../helper");
+const { parseSearchString } = require("../../src-core/route/helper");
 const moment = require("moment");
 const { home, hover } = require("../pages");
 const {
   sendCloseWinInRender,
   sendMoveWinInRender,
-} = require("../main-process/window");
-const { sendMessageInRender } = require("../main-process/message");
+  sendMessageInRender,
+} = require("../bridge");
 
 const btnSave = document.getElementById("btn-save");
 const btnClose = document.getElementById("btn-close");

@@ -1,11 +1,11 @@
-const { BrowserWindow, ipcMain, ipcRenderer } = require("electron");
-const { winMap } = require("../route/RouteWinMap");
+const { BrowserWindow, ipcMain } = require("electron");
+const { winMap } = require("./RouteWinMap");
 const { assign } = require("lodash");
 
 const defaultOptions = {
   isShow: true,
-  // isDevTool: false,
-  isDevTool: true,
+  isDevTool: false,
+  // isDevTool: true,
 };
 
 /**
@@ -62,23 +62,11 @@ const registerWinListener = () => {
     }
   });
 };
-//render send emitter
-const sendCreateWinInRender = (route, opts) => {
-  ipcRenderer.send(CHANNEL_WIN_CREATE, route, opts);
-};
-
-const sendCloseWinInRender = (route) => {
-  ipcRenderer.send(CHANNEL_WIN_CLOSE, route);
-};
-
-const sendMoveWinInRender = (route, x, y) => {
-  ipcRenderer.send(CHANNEL_WIN_MOVE, { route, x, y });
-};
 
 module.exports = {
+  CHANNEL_WIN_CREATE,
+  CHANNEL_WIN_CLOSE,
+  CHANNEL_WIN_MOVE,
   createWindow,
   registerWinListener,
-  sendCreateWinInRender,
-  sendCloseWinInRender,
-  sendMoveWinInRender,
 };

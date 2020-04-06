@@ -5,15 +5,33 @@
   "author": "zhao xi <zxpstudy@163.com>",
   "license": "MIT",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "postinstall": "install-app-deps"
   },
   "dependencies": {
     "@types/node": "^13.9.8",
+    "electron": "^8.2.0",
+    "iohook": "^0.6.5",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
-    "prettier": "^2.0.2"
+    "moment": "^2.24.0"
   },
   "devDependencies": {
-    "electron": "^8.2.0"
+    "electron-builder": "^22.4.1",
+    "prettier": "^2.0.2"
+  },
+  "iohook": {
+    "targets": [
+      "node-72",
+      "electron-76"
+    ],
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "arches": [
+      "x64",
+      "ia32"
+    ]
   }
 }

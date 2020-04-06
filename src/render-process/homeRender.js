@@ -1,7 +1,6 @@
 const { home, hover } = require("../pages");
 const { omit, keys, forEach } = require("lodash");
-const { sendCreateWinInRender } = require("../main-process/window");
-const { registerMessageInRender } = require("../main-process/message");
+const { sendCreateWinInRender, registerMessageInRender } = require("../bridge");
 const btnAdd = document.getElementById("btn_add");
 const list = document.getElementById("list");
 

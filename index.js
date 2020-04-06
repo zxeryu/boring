@@ -1,14 +1,11 @@
-const { app, Menu, ipcMain, Notification, screen, shell } = require("electron");
-const {
-  createWindow,
-  registerWinListener,
-} = require("./src/main-process/window");
+const { app, Menu } = require("electron");
+const { createWindow, registerWinListener } = require("./main-process/window");
 const { home } = require("./src/pages");
-const { registerMessageListener } = require("./src/main-process/message");
+const { registerMessageListener } = require("./main-process/message");
 
 app.whenReady().then(() => {
   createWindow(home);
-  // Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(null);
 });
 
 app.on("window-all-closed", () => {
