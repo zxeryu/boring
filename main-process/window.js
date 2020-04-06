@@ -4,8 +4,6 @@ const { assign } = require("lodash");
 
 const defaultOptions = {
   isShow: true,
-  isDevTool: false,
-  // isDevTool: true,
 };
 
 /**
@@ -19,7 +17,7 @@ const createWindow = (routeTree, options) => {
   if (opts.isShow) {
     win.show();
   }
-  if (opts.isDevTool) {
+  if (routeTree.config["isDevTool"]) {
     win.openDevTools();
   }
   //win添加到map中

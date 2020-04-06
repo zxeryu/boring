@@ -1,6 +1,6 @@
-const { home, hover } = require("../pages");
+const { home, hover, record } = require("../pages");
 const { omit, keys, forEach } = require("lodash");
-const { window, message } = require("../bridge");
+const { win, message } = require("../bridge");
 const btnAdd = document.getElementById("btn_add");
 const list = document.getElementById("list");
 
@@ -27,16 +27,16 @@ function refreshList() {
 }
 
 btnAdd.addEventListener("click", (ev) => {
-  const hoverID = new Date().toISOString();
-  operateObjs[hoverID] = [];
-  window.sendCreateWinInRender(hover.withParams({ hoverID }));
+  const recordID = new Date().toISOString();
+  operateObjs[recordID] = [];
+  win.sendCreateWinInRender(record.withParams({ recordID }));
 });
 
 message.registerMessageInRender(home, (event, args) => {
-  const { type, params } = args;
-  if (type === "event") {
-    operateObjs[params.hoverID].push(omit(params, ["hoverID"]));
-  } else if (type === "save") {
+  const { fromRouteID, toRouteID, type, params } = args;
+  if (fromRouteID === record.id) {
+    const { recordID, content } = params;
+    operateObjs[recordID] = content;
     refreshList();
   }
 });

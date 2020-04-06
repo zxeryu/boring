@@ -17,6 +17,15 @@ const ConfigTransparent = {
   transparent: true,
 };
 
+const record = RouteTree.id("record")
+  .withName("录制")
+  .withPath("./src/page/record.html")
+  .withConfig({
+    ...ConfigBase,
+    width: 300,
+    height: 180,
+  });
+
 const hover = RouteTree.id("hover")
   .withName("取值")
   .withPath("./src/page/hover.html")
@@ -36,10 +45,12 @@ const home = RouteTree.id("main")
     x: 100,
     y: 100,
     fullscreen: false,
+    isDevTool: true,
   })
-  .withRoutes([hover]);
+  .withRoutes([hover, record]);
 
 module.exports = {
   home,
   hover,
+  record,
 };

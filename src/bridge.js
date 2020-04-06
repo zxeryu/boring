@@ -1,8 +1,8 @@
-const window = require("../render-process/window");
+const win = require("../render-process/window");
 const message = require("../render-process/message");
-const ioHook = require("../main-process/iohook");
+const ioHook = require("../render-process/iohook");
 module.exports = {
-  window,
+  win,
   message,
   ioHook,
 };

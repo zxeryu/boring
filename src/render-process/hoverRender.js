@@ -1,7 +1,7 @@
 const { parseSearchString } = require("../../src-core/route/helper");
 const moment = require("moment");
 const { home, hover } = require("../pages");
-const { window, message } = require("../bridge");
+const { win, message } = require("../bridge");
 
 const btnSave = document.getElementById("btn-save");
 const btnClose = document.getElementById("btn-close");
@@ -25,7 +25,7 @@ header.addEventListener("mousemove", (e) => {
     const dividerY = e.screenY - prePoint.y;
     const x = e.screenX - e.clientX + dividerX,
       y = e.screenY - e.clientY + dividerY;
-    window.sendMoveWinInRender(hover, x, y);
+    win.sendMoveWinInRender(hover, x, y);
   }
   prePoint = { x: e.screenX, y: e.screenY };
 });
@@ -37,7 +37,7 @@ header.addEventListener("mouseleave", (e) => {
 });
 
 btnClose.addEventListener("click", () => {
-  window.sendCloseWinInRender(hover);
+  win.sendCloseWinInRender(hover);
 });
 
 /**
@@ -98,5 +98,5 @@ btnSave.addEventListener("click", () => {
     },
   };
   message.sendMessageInRender(args);
-  window.sendCloseWinInRender(hover);
+  win.sendCloseWinInRender(hover);
 });
