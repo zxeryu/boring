@@ -3,6 +3,7 @@ const { createWindow, registerWinListener } = require("./main-process/window");
 const { home } = require("./src/pages");
 const { registerMessageListener } = require("./main-process/message");
 const { registerIoHookListener } = require("./main-process/iohook");
+const { registerRobotListener } = require("./main-process/robot");
 
 app.whenReady().then(() => {
   createWindow(home);
@@ -22,3 +23,4 @@ app.on("window-all-closed", () => {
 registerWinListener();
 registerMessageListener();
 registerIoHookListener();
+registerRobotListener();
