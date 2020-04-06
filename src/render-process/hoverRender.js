@@ -1,11 +1,7 @@
 const { parseSearchString } = require("../../src-core/route/helper");
 const moment = require("moment");
 const { home, hover } = require("../pages");
-const {
-  sendCloseWinInRender,
-  sendMoveWinInRender,
-  sendMessageInRender,
-} = require("../bridge");
+const { window, message } = require("../bridge");
 
 const btnSave = document.getElementById("btn-save");
 const btnClose = document.getElementById("btn-close");
@@ -29,7 +25,7 @@ header.addEventListener("mousemove", (e) => {
     const dividerY = e.screenY - prePoint.y;
     const x = e.screenX - e.clientX + dividerX,
       y = e.screenY - e.clientY + dividerY;
-    sendMoveWinInRender(hover, x, y);
+    window.sendMoveWinInRender(hover, x, y);
   }
   prePoint = { x: e.screenX, y: e.screenY };
 });
@@ -41,7 +37,7 @@ header.addEventListener("mouseleave", (e) => {
 });
 
 btnClose.addEventListener("click", () => {
-  sendCloseWinInRender(hover);
+  window.sendCloseWinInRender(hover);
 });
 
 /**
@@ -69,7 +65,7 @@ html.addEventListener("mouseup", (ev) => {
       Math.abs(upPoint.screenY - downPoint.screenY) < 5
     ) {
       // fromRouteID, toRouteID, params
-      sendMessageInRender({
+      message.sendMessageInRender({
         ...args,
         params: {
           hoverID: query.hoverID,
@@ -79,7 +75,7 @@ html.addEventListener("mouseup", (ev) => {
         },
       });
     } else {
-      sendMessageInRender({
+      message.sendMessageInRender({
         ...args,
         params: {
           hoverID: query.hoverID,
@@ -101,6 +97,6 @@ btnSave.addEventListener("click", () => {
       hoverID: query.hoverID,
     },
   };
-  sendMessageInRender(args);
-  sendCloseWinInRender(hover);
+  message.sendMessageInRender(args);
+  window.sendCloseWinInRender(hover);
 });
