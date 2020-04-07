@@ -18,7 +18,7 @@ function refreshList() {
     let btn = document.createElement("button");
     btn.appendChild(document.createTextNode("执行"));
     btn.onclick = function () {
-      queueExecute(operateObjs[key]);
+      queueExecute([...operateObjs[key]]);
     };
     li.appendChild(document.createTextNode(key));
     li.appendChild(btn);
