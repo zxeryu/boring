@@ -1,5 +1,5 @@
 const { home, hover, record } = require("../pages");
-const { omit, keys, forEach } = require("lodash");
+const { omit, keys, forEach, get } = require("lodash");
 const { win, message, robot } = require("../bridge");
 const btnAdd = document.getElementById("btn_add");
 const list = document.getElementById("list");
@@ -47,17 +47,22 @@ const queueExecute = (queue) => {
   }
   const item = queue.shift(0);
   console.log("execute item ", item);
-  if (item.operate === "click") {
-    const point = item.points[0];
+  const intervalTime = get(item, "intervalTime", 0);
+  setTimeout(() => {
+    consumeEvent(item);
+    queueExecute(queue);
+  }, intervalTime);
+};
+
+const consumeEvent = (event) => {
+  if (event.operate === "click") {
+    const point = event.points[0];
     robot.sendRobotClickInRender({ x: point.x, y: point.y });
-  } else if (item.operate === "slide") {
+  } else if (event.operate === "slide") {
     robot.sendRobotDragInRender({
-      startPoint: item.points[0],
-      endPoint: item.points[1],
-      time: item.time / 1000,
+      startPoint: event.points[0],
+      endPoint: event.points[1],
+      time: event.time / 1000,
     });
   }
-  setTimeout(() => {
-    queueExecute(queue);
-  }, 1000);
 };

@@ -65,6 +65,7 @@ const refreshEvents = () => {
 let downPoint = undefined;
 let downTime = undefined;
 let upPoint = undefined;
+let lastOperateTime = undefined;
 
 // button: 1
 // clicks: 6
@@ -81,7 +82,12 @@ const handleMouseDown = (e, args) => {
 const handleMouseUp = (e, args) => {
   upPoint = { x: args.x, y: args.y };
   if (downPoint && downTime !== undefined) {
-    const diffTime = moment().diff(downTime, "millisecond");
+    let intervalTime = 0;
+    const current = moment();
+    if (lastOperateTime) {
+      intervalTime = current.diff(lastOperateTime, "millisecond");
+    }
+    const diffTime = current.diff(downTime, "millisecond");
     if (
       Math.abs(upPoint.x - downPoint.x) < 5 &&
       Math.abs(upPoint.y - downPoint.y) < 5
@@ -90,6 +96,7 @@ const handleMouseUp = (e, args) => {
         operate: "click",
         points: [upPoint],
         time: diffTime,
+        intervalTime,
       };
       operateList.push(event);
     } else {
@@ -97,10 +104,12 @@ const handleMouseUp = (e, args) => {
         operate: "slide",
         points: [downPoint, upPoint],
         time: diffTime,
+        intervalTime,
       };
       operateList.push(event);
     }
     //刷新事件个数
     refreshEvents();
+    lastOperateTime = current;
   }
 };
