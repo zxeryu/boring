@@ -6,12 +6,12 @@ class RouteWinMap {
     return get(this.maps, id, undefined);
   }
 
-  pushOrUpdateWin(key, win) {
-    set(this.maps, key, win);
+  pushOrUpdateWin(id, win) {
+    set(this.maps, id, win);
   }
 
-  removeWin(...ids) {
-    this.maps = omit(this.maps, [...ids]);
+  removeWin(id) {
+    this.maps = omit(this.maps, [id]);
   }
 }
 

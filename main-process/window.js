@@ -29,10 +29,11 @@ const createWindow = (routeTree, options) => {
  * close window
  */
 const closeWindow = (routeTree) => {
-  const win = winMap.getWin(routeTree.id);
+  let win = winMap.getWin(routeTree.id);
   if (win) {
     win.close();
-    winMap.removeWin(win);
+    winMap.removeWin(routeTree.id);
+    win = null;
   }
 };
 

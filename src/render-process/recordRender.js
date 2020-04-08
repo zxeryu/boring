@@ -9,8 +9,11 @@ const btnSave = document.getElementById("btn_save");
 const state = document.getElementById("state");
 const eventsDiv = document.getElementById("eventsDiv");
 
+let flag = false;
+
 btnStart.addEventListener("click", (ev) => {
   btnStart.disable = true;
+  flag = true;
   refreshState("正在录制...");
   ioHook.sendIoHookStartInRender();
   ioHook.registerIoHookInRender(record, "mousedown", handleMouseDown);
@@ -18,23 +21,34 @@ btnStart.addEventListener("click", (ev) => {
 });
 btnStop.addEventListener("click", (ev) => {
   btnStop.disable = true;
+  flag = false;
   refreshState("结束录制！");
   ioHook.unregisterIoHookInRender(record, "mousedown");
   ioHook.unregisterIoHookInRender(record, "mouseup");
   ioHook.sendIoHookStopInRender();
 });
 btnSave.addEventListener("click", (ev) => {
-  message.sendMessageInRender({
-    fromRouteID: record.id,
-    toRouteID: home.id,
-    type: "recordEvent",
-    params: {
-      recordID: query.recordID,
-      content: operateList,
-    },
-  });
+  if (operateList && operateList.length > 0) {
+    message.sendMessageInRender({
+      fromRouteID: record.id,
+      toRouteID: home.id,
+      type: "recordEvent",
+      params: {
+        recordID: query.recordID,
+        content: operateList,
+      },
+    });
+  }
   win.sendCloseWinInRender(record);
 });
+
+window.onbeforeunload=ev => {
+  if(flag){
+    ioHook.unregisterIoHookInRender(record, "mousedown");
+    ioHook.unregisterIoHookInRender(record, "mouseup");
+    ioHook.sendIoHookStopInRender();
+  }
+};
 
 const query = parseSearchString(window.location.search);
 
