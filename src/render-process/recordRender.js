@@ -2,6 +2,8 @@ const { ioHook, message, win } = require("../bridge");
 const { record, home } = require("../pages");
 const moment = require("moment");
 const { parseSearchString } = require("../../src-core/route/helper");
+const { take, size } = require("lodash");
+
 const btnStart = document.getElementById("btn_start");
 const btnStop = document.getElementById("btn_stop");
 const btnSave = document.getElementById("btn_save");
@@ -28,22 +30,23 @@ btnStop.addEventListener("click", (ev) => {
   ioHook.sendIoHookStopInRender();
 });
 btnSave.addEventListener("click", (ev) => {
-  if (operateList && operateList.length > 0) {
+  if (operateList && operateList.length > 1) {
+    const events = take(operateList, size(operateList) - 1);
     message.sendMessageInRender({
       fromRouteID: record.id,
       toRouteID: home.id,
       type: "recordEvent",
       params: {
         recordID: query.recordID,
-        content: operateList,
+        content: events,
       },
     });
   }
   win.sendCloseWinInRender(record);
 });
 
-window.onbeforeunload=ev => {
-  if(flag){
+window.onbeforeunload = (ev) => {
+  if (flag) {
     ioHook.unregisterIoHookInRender(record, "mousedown");
     ioHook.unregisterIoHookInRender(record, "mouseup");
     ioHook.sendIoHookStopInRender();
@@ -96,7 +99,7 @@ const handleMouseDown = (e, args) => {
 const handleMouseUp = (e, args) => {
   upPoint = { x: args.x, y: args.y };
   if (downPoint && downTime !== undefined) {
-    let intervalTime = 0;
+    let intervalTime = 1000;
     const current = moment();
     if (lastOperateTime) {
       intervalTime = current.diff(lastOperateTime, "millisecond");
