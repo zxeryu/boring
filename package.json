@@ -13,7 +13,7 @@
     "electron": "^8.2.0",
     "iohook": "^0.6.5",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "robotjs": "^0.6.0"
   },
   "devDependencies": {
